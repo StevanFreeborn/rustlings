@@ -11,7 +11,7 @@
 // - Uppercase the string
 // - Trim the string
 // - Append "bar" to the string a specified amount of times
-//
+// 
 // The exact form of this will be:
 // - The input is going to be a Vector of 2-length tuples,
 //   the first element is the string, the second one is the command.
@@ -26,19 +26,40 @@ enum Command {
 mod my_module {
     use super::Command;
 
-    // TODO: Complete the function as described above.
-    // pub fn transformer(input: ???) -> ??? { ??? }
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> { 
+        let mut result = Vec::new();
+
+        for i in input {
+            match i.1 {
+                Command::Uppercase => {
+                    let uppercased = i.0.to_uppercase().to_owned();
+                    result.push(uppercased);
+                },
+                Command::Trim => {
+                    let trimmed = i.0.trim().to_owned();
+                    result.push(trimmed);
+                },
+                Command::Append(num_of_times_to_repeat) => {
+                    const VALUE_TO_REPEAT: &str = "bar";
+                    let repeated = VALUE_TO_REPEAT.repeat(num_of_times_to_repeat);
+                    let joined = i.0 + &repeated;
+                    result.push(joined);
+                },
+            }
+        }
+
+        result
+    }
 }
 
 fn main() {
-    // You can optionally experiment here.
+    println!("We be passing!")
 }
 
 #[cfg(test)]
 mod tests {
-    // TODO: What do we need to import to have `transformer` in scope?
-    // use ???;
     use super::Command;
+    use super::my_module::transformer;
 
     #[test]
     fn it_works() {
@@ -48,6 +69,7 @@ mod tests {
             ("foo".to_string(), Command::Append(1)),
             ("bar".to_string(), Command::Append(5)),
         ];
+
         let output = transformer(input);
 
         assert_eq!(
