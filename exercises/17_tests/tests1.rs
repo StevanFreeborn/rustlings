@@ -6,18 +6,16 @@ fn is_even(n: i64) -> bool {
 }
 
 fn main() {
-    // You can optionally experiment here.
+    println!("8 is an even number: {}", is_even(8));
 }
 
 #[cfg(test)]
 mod tests {
-    // TODO: Import `is_even`. You can use a wildcard to import everything in
-    // the outer module.
+    use super::*;
 
     #[test]
     fn you_can_assert() {
-        // TODO: Test the function `is_even` with some values.
-        assert!();
-        assert!();
+        assert!(!is_even(77), "expected 77 to be false");
+        assert!(is_even(8), "expected 8 to be true");
     }
 }
